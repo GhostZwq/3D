@@ -13,6 +13,15 @@ GLfloat vertices[] = {
 	 0.0f,  0.5f, 0.0f
 };
 
+GLfloat vertices_two_triangle[] = {
+	-0.3f, 0.2f, 0.0f,
+	0.0f,  -0.4f, 0.0f,
+	0.0f, 0.2f, 0.0f,
+	0.0f,  -0.4f, 0.0f,
+	0.0f, 0.2f, 0.0f,
+	0.8f, -0.2f, 0.0f
+};
+
 GLfloat vertices_rect[] = {
 	0.5f, 0.5f, 0.0f,
 	0.5f, -0.5f, 0.0f,
@@ -148,11 +157,17 @@ int main()
 	GLuint VBO2;
 	glGenBuffers(1, &VBO2);
 
+	GLuint VBO_Two_Triangle;
+	glGenBuffers(1, &VBO_Two_Triangle);
+
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
 
 	GLuint VAO2;
 	glGenVertexArrays(1, &VAO2);
+
+	GLuint VAO_Two_Triangle;
+	glGenVertexArrays(1, &VAO_Two_Triangle);
 
 	GLuint EBO;
 	glGenBuffers(1, &EBO);
@@ -172,12 +187,20 @@ int main()
 
 	glBindVertexArray(VAO2);
 	
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_rect), vertices_rect, GL_STATIC_DRAW);
 	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindVertexArray(0);
+
+	glBindVertexArray(VAO_Two_Triangle);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_Two_Triangle);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_two_triangle), vertices_two_triangle, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
@@ -195,8 +218,10 @@ int main()
 		glUseProgram(shaderProgram);
 		//glBindVertexArray(VAO);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		glBindVertexArray(VAO2);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//glBindVertexArray(VAO2);
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(VAO_Two_Triangle);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
 

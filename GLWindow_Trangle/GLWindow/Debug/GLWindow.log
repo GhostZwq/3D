@@ -1,4 +1,4 @@
-﻿生成启动时间为 2018/8/14 22:42:37。
+﻿生成启动时间为 2018/8/15 21:44:58。
      1>项目“E:\work\3D\LearnOpenGL\GLWindow\GLWindow_Trangle\GLWindow\GLWindow.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          D:\WorkProgram\VisualStudio\VS2013\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
@@ -11,4 +11,4 @@
 
 生成成功。
 
-已用时间 00:00:00.86
+已用时间 00:00:01.35
