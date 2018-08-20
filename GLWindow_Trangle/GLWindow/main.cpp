@@ -191,7 +191,12 @@ int main()
 		//glBindVertexArray(VAO2);
 		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(VAO_Two_Triangle);
+
+		float timeValue = glfwGetTime();
+		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+		int vertexColorLocation = glGetUniformLocation(shader.getShaderProgram(), "ourColor");
 		shader.useShader();
+		glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		shader.unuseShader();
 		shader_yellow.useShader();

@@ -13,10 +13,11 @@ char* vertex_shader = {
 
 char* fragment_shader = {
 	"#version 330 core                           \n"
-	"out vec4 color;                             \n"
+	"out vec4 FragColor;                         \n"
+	"uniform vec4 ourColor;                      \n"
 	"void main()                                 \n"
 	"{                                           \n"
-	"    color = vec4(1.0f, 0.5f, 0.2f, 1.0f);   \n"
+	"    FragColor = ourColor;                   \n"
 	"}"
 };
 

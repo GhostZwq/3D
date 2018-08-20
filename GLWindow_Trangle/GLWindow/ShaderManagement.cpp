@@ -108,3 +108,8 @@ void ShaderManagement::unuseShader()
 {
 	glUseProgram(0);
 }
+
+GLuint ShaderManagement::getShaderProgram() const
+{
+	return m_iShaderProgram;
+}

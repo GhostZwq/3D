@@ -16,6 +16,9 @@ public:
 	void useShader();
 	void unuseShader();
 
+public:
+	GLuint getShaderProgram() const;
+
 private:
 	char* m_chVertex_Shader;
 	char* m_chFragment_Shader;
