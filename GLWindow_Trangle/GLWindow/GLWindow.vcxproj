@@ -76,6 +76,12 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShaderManagement.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ShaderInfo.h" />
+    <ClInclude Include="ShaderManagement.h" />
+    <ClInclude Include="VertexInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

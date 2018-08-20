@@ -4,54 +4,13 @@
 #include <GLFW\glfw3.h>
 #include <iostream>
 
+// Customer File
+#include "ShaderManagement.h"
+#include "ShaderInfo.h"
+#include "VertexInfo.h"
+
 
 bool g_line = false;
-
-GLfloat vertices[] = {
-	-0.5f, -0.5f, 0.0f,
-	 0.5f, -0.5f, 0.0f,
-	 0.0f,  0.5f, 0.0f
-};
-
-GLfloat vertices_two_triangle[] = {
-	-0.3f, 0.2f, 0.0f,
-	0.0f,  -0.4f, 0.0f,
-	0.0f, 0.2f, 0.0f,
-	0.0f,  -0.4f, 0.0f,
-	0.0f, 0.2f, 0.0f,
-	0.8f, -0.2f, 0.0f
-};
-
-GLfloat vertices_rect[] = {
-	0.5f, 0.5f, 0.0f,
-	0.5f, -0.5f, 0.0f,
-	-0.5f, -0.5f, 0.0f,
-	-0.5f, 0.5f, 0.0f
-};
-
-GLuint indices[] = {
-	0, 1, 3,
-	1, 2, 3
-};
-
-char* vertex_shader = {
-	"#version 330 core                           \n"
-	"layout (location = 0) in vec3 position;     \n"
-	"                                            \n"
-	"void main()                                 \n"
-	"{                                           \n"
-	"    gl_Position = vec4(position.x, position.y, position.z, 1.0); \n"
-	"}                                           \n"
-};
-
-char* fragment_shader = {
-	"#version 330 core                           \n"
-	"out vec4 color;                             \n"
-	"void main()                                 \n"
-	"{                                           \n"
-	"    color = vec4(1.0f, 0.5f, 0.2f, 1.0f);   \n"
-	"}"
-};
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -108,48 +67,58 @@ int main()
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 	
-	GLuint vertexShader;
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	//GLuint vertexShader;
+	//vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	
-	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
-	glCompileShader(vertexShader);
+	//glShaderSource(vertexShader, 1, &vertex_shader, NULL);
+	//glCompileShader(vertexShader);
 
-	// 检测编译是否成功
-	GLint success;
-	GLchar infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
+	//// 检测编译是否成功
+	//GLint success;
+	//GLchar infoLog[512];
+	//glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+	//
+	//if (!success)
+	//{
+	//	glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+	//	std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+	//}
 
-	GLuint fragmentShader;
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
-	glCompileShader(fragmentShader);
-	
-	GLuint shaderProgram;
-	shaderProgram = glCreateProgram();
-	
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
+	//GLuint fragmentShader;
+	//fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	//glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
+	//glCompileShader(fragmentShader);
+	//
+	//GLuint shaderProgram;
+	//shaderProgram = glCreateProgram();
+	//
+	//glAttachShader(shaderProgram, vertexShader);
+	//glAttachShader(shaderProgram, fragmentShader);
+	//glLinkProgram(shaderProgram);
 
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR: " << infoLog << std::endl;
-	}
+	//glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	//if (!success)
+	//{
+	//	glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+	//	std::cout << "ERROR: " << infoLog << std::endl;
+	//}
 
-	// 在使用glUseProgram之后，每个着色器调用和渲染都会使用这个程序对象
-	glUseProgram(shaderProgram);
+	//// 在使用glUseProgram之后，每个着色器调用和渲染都会使用这个程序对象
+	//glUseProgram(shaderProgram);
 
-	// 删除着色器对象，不再需要
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	//// 删除着色器对象，不再需要
+	//glDeleteShader(vertexShader);
+	//glDeleteShader(fragmentShader);
+
+
+	ShaderManagement shader;
+	shader.init(vertex_shader, fragment_shader);
+	shader.compileShader();
+	shader.useShader();
+
+	ShaderManagement shader_yellow;
+	shader_yellow.init(vertex_shader_yellow, fragment_shader_yellow);
+	shader_yellow.compileShader();
 	
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
@@ -214,14 +183,21 @@ int main()
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-			
-		glUseProgram(shaderProgram);
+
+
+		//glUseProgram(shaderProgram);
 		//glBindVertexArray(VAO);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		//glBindVertexArray(VAO2);
 		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(VAO_Two_Triangle);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		shader.useShader();
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		shader.unuseShader();
+		shader_yellow.useShader();
+		glDrawArrays(GL_TRIANGLES, 3, 6);
+		shader_yellow.unuseShader();
+		
 		glBindVertexArray(0);
 
 
