@@ -112,13 +112,13 @@ int main()
 
 
 	ShaderManagement shader;
-	shader.init(vertex_shader, fragment_shader);
+	shader.init("../GLWindow/Shaders/VertexShader.vs", "../GLWindow/Shaders/FragShader.fs");
 	shader.compileShader();
 	shader.useShader();
 
-	ShaderManagement shader_yellow;
-	shader_yellow.init(vertex_shader_yellow, fragment_shader_yellow);
-	shader_yellow.compileShader();
+	//ShaderManagement shader_yellow;
+	//shader_yellow.init(vertex_shader_yellow, fragment_shader_yellow);
+	//shader_yellow.compileShader();
 	
 	GLuint VBO;
 	glGenBuffers(1, &VBO);

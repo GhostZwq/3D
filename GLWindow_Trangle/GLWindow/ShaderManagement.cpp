@@ -4,6 +4,9 @@
 #include <memory>
 #include <iostream>
 
+#include <fstream>
+#include <sstream>
+
 ShaderManagement::ShaderManagement()
 	: m_chVertex_Shader(nullptr)
 	, m_chFragment_Shader(nullptr)
@@ -36,15 +39,45 @@ ShaderManagement::~ShaderManagement()
  	}
 }
 
-void ShaderManagement::init(char* vertexShader, char* fragShader)
+void ShaderManagement::init(const char* vertexShaderPath, const char* fragShaderPath)
 {
+	std::string vertexCode;
+	std::string fragCode;
+	std::ifstream vShaderFile;
+	std::ifstream fShaderFile;
+	
+	// 保证ifstream对象可以抛出异常
+	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	
+	try
+	{
+		// 打开文件
+		vShaderFile.open(vertexShaderPath);
+		fShaderFile.open(fragShaderPath);
+		std::stringstream vShaderStream, fShaderStream;
+		// 读取文件的缓冲区内容到数据流中
+		vShaderStream << vShaderFile.rdbuf();
+		fShaderStream << fShaderFile.rdbuf();
+		// 关闭文件处理器
+		vShaderFile.close();
+		fShaderFile.close();
+		// 数据流到string 
+		vertexCode = vShaderStream.str();
+		fragCode = fShaderStream.str();
+	}
+	catch (std::ifstream::failure e)
+	{
+		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+	}
+	
 	memset(m_chVertex_Shader, '\0', 1024);
-	memcpy(m_chVertex_Shader, vertexShader, strlen(vertexShader));
-	m_chVertex_Shader[strlen(vertexShader) + 1] = '\0';
+	memcpy(m_chVertex_Shader, vertexCode.c_str(), strlen(vertexCode.c_str()));
+	m_chVertex_Shader[strlen(vertexCode.c_str()) + 1] = '\0';
 
 	memset(m_chFragment_Shader, '\0', 1024);
-	memcpy(m_chFragment_Shader, fragShader, strlen(fragShader));
-	m_chFragment_Shader[strlen(fragShader) + 1] = '\0';
+	memcpy(m_chFragment_Shader, fragCode.c_str(), strlen(fragCode.c_str()));
+	m_chFragment_Shader[strlen(fragCode.c_str()) + 1] = '\0';
 }
 
 void ShaderManagement::compileShader()
@@ -112,4 +145,18 @@ void ShaderManagement::unuseShader()
 GLuint ShaderManagement::getShaderProgram() const
 {
 	return m_iShaderProgram;
+}
+
+void ShaderManagement::setBool(const std::string& name, bool value) const
+{
+	glUniform1i(glGetUniformLocation(m_iShaderProgram, name.c_str()), (int)value);
+}
+
+void ShaderManagement::setInt(const std::string &name, int value) const
+{
+	glUniform1i(glGetUniformLocation(m_iShaderProgram, name.c_str()), value);
+}
+void ShaderManagement::setFloat(const std::string &name, float value) const
+{
+	glUniform1f(glGetUniformLocation(m_iShaderProgram, name.c_str()), value);
 }
