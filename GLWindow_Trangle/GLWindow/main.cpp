@@ -114,7 +114,10 @@ int main()
 	ShaderManagement shader;
 	shader.init("../GLWindow/Shaders/VertexShader.vs", "../GLWindow/Shaders/FragShader.fs");
 	shader.compileShader();
-	shader.useShader();
+	shader.useShader();                    // 后面setFloat函数要用到shaderprogram函数，所以这里需要先use program
+	float offset = 0.5f;
+	shader.setFloat("xOffset", offset);
+
 
 	//ShaderManagement shader_yellow;
 	//shader_yellow.init(vertex_shader_yellow, fragment_shader_yellow);
@@ -153,6 +156,8 @@ int main()
 
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)( 3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
+
 
 	// 解绑VAO
 	glBindVertexArray(0);
