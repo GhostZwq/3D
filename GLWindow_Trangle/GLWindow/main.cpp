@@ -147,14 +147,17 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
 	// 打开使用位置为0的顶点属性
 	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)( 3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 
 	// 解绑VAO
 	glBindVertexArray(0);
 
-	glBindVertexArray(VAO2);
+	/*glBindVertexArray(VAO2);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_rect), vertices_rect, GL_STATIC_DRAW);
@@ -162,7 +165,7 @@ int main()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
 	glBindVertexArray(0);
@@ -173,7 +176,7 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	glBindVertexArray(0);
+	glBindVertexArray(0);*/
 	
 
 	while (!glfwWindowShouldClose(window))
@@ -188,20 +191,20 @@ int main()
 		//glUseProgram(shaderProgram);
 		//glBindVertexArray(VAO);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		//glBindVertexArray(VAO2);
+		glBindVertexArray(VAO);
 		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(VAO_Two_Triangle);
+		//glBindVertexArray(VAO_Two_Triangle);
 
-		float timeValue = glfwGetTime();
-		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-		int vertexColorLocation = glGetUniformLocation(shader.getShaderProgram(), "ourColor");
+		//float timeValue = glfwGetTime();
+		//float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+		//int vertexColorLocation = glGetUniformLocation(shader.getShaderProgram(), "ourColor");
 		shader.useShader();
-		glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+		//glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		shader.unuseShader();
-		shader_yellow.useShader();
-		glDrawArrays(GL_TRIANGLES, 3, 6);
-		shader_yellow.unuseShader();
+		//shader_yellow.useShader();
+		//glDrawArrays(GL_TRIANGLES, 3, 6);
+		//shader_yellow.unuseShader();
 		
 		glBindVertexArray(0);
 

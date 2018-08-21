@@ -4,7 +4,7 @@
 
 #include <gl\glew.h>
 
-GLfloat vertices[] = {
+GLfloat vertices_1[] = {
 	-0.5f, -0.5f, 0.0f,
 	0.5f, -0.5f, 0.0f,
 	0.0f, 0.5f, 0.0f
@@ -29,6 +29,13 @@ GLfloat vertices_rect[] = {
 GLuint indices[] = {
 	0, 1, 3,
 	1, 2, 3
+};
+
+float vertices[] = {
+	// 位置            // 颜色
+	0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,       // 右下
+	-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,      // 左下 
+	0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f         // 顶部
 };
 
 
