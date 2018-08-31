@@ -85,7 +85,6 @@ int main()
 	// 绑定VAO, 其后所有VBO操作都会存储到这个VAO中，供后续使用
 	glBindVertexArray(VAO);
 	
-
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_texture), vertices_texture, GL_STATIC_DRAW);
 
@@ -105,9 +104,13 @@ int main()
 	glBindVertexArray(0);
 	
 	// Texture Operation	
-	unsigned int texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	unsigned int texture1, texture2;
+	glGenTextures(1, &texture1);
+	glGenTextures(1, &texture2);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+
 	// 为当前绑定的纹理对象设置环绕、过滤方式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -127,12 +130,44 @@ int main()
 	}
 	// 释放图片内存
 	stbi_image_free(data);
+	//glBindTexture(GL_TEXTURE_2D, 0);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+
+	// 为当前绑定的纹理对象设置环绕、过滤方式
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	
+	// 加载并生成纹理
+	unsigned char* dataFace = stbi_load("Resource/Bitmap/awesomeface.png", &i_Width, &i_Height, &nrChannels, 0);
+	if (dataFace)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, i_Width, i_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, dataFace);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+	{
+		std::cout << "Failed to load texture" << std::endl;
+	}
+	// 释放图片内存
+	stbi_image_free(dataFace);
 	// Texture Done
 
-	// 把纹理赋值给片段着色器的采样器
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glBindVertexArray(VAO);
+	// 要放在getShaderProgram前面，否则无效
 	shader.useShader();
+
+	// 把纹理赋值给片段着色器的采样器
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	glUniform1i(glGetUniformLocation(shader.getShaderProgram(), "texture1"), 0);
+	//glUniform1i(glGetUniformLocation(shader.getShaderProgram(), "texture2"), 1);
+	shader.setInt("texture2", 1);
+	glBindVertexArray(VAO);
+
 
 	while (!glfwWindowShouldClose(window))
 	{
