@@ -118,6 +118,8 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// 加载并生成纹理
 	int i_Width, i_Height, nrChannels;
+	// 反转图片Y轴，使之与OpenGL坐标系匹配。
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load("Resource/Bitmap/container.jpg", &i_Width, &i_Height, &nrChannels, 0);
 	if (data)
 	{
