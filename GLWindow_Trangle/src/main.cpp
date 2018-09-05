@@ -69,7 +69,7 @@ int main()
 	glViewport(0, 0, width, height);
 
 	ShaderManagement shader;
-	shader.init("../GLWindow/Shaders/VertexShader.vs", "../GLWindow/Shaders/FragShader.fs");
+	shader.init("../Shaders/VertexShader.vs", "../Shaders/FragShader.fs");
 	shader.compileShader();
 	//shader.useShader();                    // 后面setFloat函数要用到shaderprogram函数，所以这里需要先use program
 	
@@ -112,15 +112,15 @@ int main()
 	glBindTexture(GL_TEXTURE_2D, texture1);
 
 	// 为当前绑定的纹理对象设置环绕、过滤方式
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// 加载并生成纹理
 	int i_Width, i_Height, nrChannels;
 	// 反转图片Y轴，使之与OpenGL坐标系匹配。
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load("Resource/Bitmap/container.jpg", &i_Width, &i_Height, &nrChannels, 0);
+	unsigned char* data = stbi_load("../Resource/Bitmap/container.jpg", &i_Width, &i_Height, &nrChannels, 0);
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, i_Width, i_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -140,12 +140,12 @@ int main()
 	// 为当前绑定的纹理对象设置环绕、过滤方式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	
 	// 加载并生成纹理
-	unsigned char* dataFace = stbi_load("Resource/Bitmap/awesomeface.png", &i_Width, &i_Height, &nrChannels, 0);
+	unsigned char* dataFace = stbi_load("../Resource/Bitmap/awesomeface.png", &i_Width, &i_Height, &nrChannels, 0);
 	if (dataFace)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, i_Width, i_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, dataFace);
