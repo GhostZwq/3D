@@ -12,6 +12,7 @@
 
 
 bool g_line = false;
+float g_definition = 0.0;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -33,6 +34,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 
 		g_line = !g_line;
+	}
+	if (key == GLFW_KEY_UP && action == GLFW_PRESS)
+	{
+		g_definition += 0.1;
+		if (g_definition > 1.0)
+		{
+			g_definition = 1.0;
+		}
+
+	}
+	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
+	{
+		g_definition -= 0.1;
+		if (g_definition < 0.0)
+		{
+			g_definition = 0.0;
+		}
 	}
 }
 
@@ -162,6 +180,8 @@ int main()
 	// 要放在getShaderProgram前面，否则无效
 	shader.useShader();
 
+	// 改变清晰度
+
 	// 把纹理赋值给片段着色器的采样器
 	glBindTexture(GL_TEXTURE_2D, texture1);
 	glBindTexture(GL_TEXTURE_2D, texture2);
@@ -179,8 +199,12 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+
+		glUniform1f(glGetUniformLocation(shader.getShaderProgram(), "definition"), g_definition);
+
 		//glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
 
 		// 交换缓冲
 		glfwSwapBuffers(window);
