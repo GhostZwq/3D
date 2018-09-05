@@ -42,6 +42,7 @@
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <IncludePath>E:\work\3D\3rdPartLib\include\;$(IncludePath)</IncludePath>
     <LibraryPath>E:\work\3D\3rdPartLib\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)/bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>E:\work\3D\3rdPartLib\lib;$(LibraryPath)</LibraryPath>
@@ -52,7 +53,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -76,20 +77,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ShaderManagement.cpp" />
-    <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="..\src\glad.c" />
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\ShaderManagement.cpp" />
+    <ClCompile Include="..\src\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ShaderInfo.h" />
-    <ClInclude Include="ShaderManagement.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="VertexInfo.h" />
+    <ClInclude Include="..\include\stb_image.h" />
+    <ClInclude Include="..\src\ShaderInfo.h" />
+    <ClInclude Include="..\src\ShaderManagement.h" />
+    <ClInclude Include="..\src\VertexInfo.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\FragShader.fs" />
-    <None Include="Shaders\VertexShader.vs" />
+    <None Include="..\Shaders\FragShader.fs" />
+    <None Include="..\Shaders\VertexShader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
