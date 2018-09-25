@@ -42,7 +42,8 @@
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <IncludePath>E:\work\3D\3rdPartLib\include\;$(IncludePath)</IncludePath>
     <LibraryPath>E:\work\3D\3rdPartLib\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)/bin</OutDir>
+    <OutDir>../../bin</OutDir>
+    <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>E:\work\3D\3rdPartLib\lib;$(LibraryPath)</LibraryPath>
@@ -53,11 +54,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>./;../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include/;./include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -77,20 +79,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\glad.c" />
-    <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\ShaderManagement.cpp" />
-    <ClCompile Include="..\src\stb_image.cpp" />
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ShaderManagement.cpp" />
+    <ClCompile Include="src\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\stb_image.h" />
-    <ClInclude Include="..\src\ShaderInfo.h" />
-    <ClInclude Include="..\src\ShaderManagement.h" />
-    <ClInclude Include="..\src\VertexInfo.h" />
+    <ClInclude Include="..\..\include\stb_image.h" />
+    <ClInclude Include="include\ShaderInfo.h" />
+    <ClInclude Include="include\ShaderManagement.h" />
+    <ClInclude Include="include\VertexInfo.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Shaders\FragShader.fs" />
-    <None Include="..\Shaders\VertexShader.vs" />
+    <None Include="..\..\shader\FragShader.fs" />
+    <None Include="..\..\shader\VertexShader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

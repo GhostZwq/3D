@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLWindow", "GLWindow\GLWindow.vcxproj", "{4139D970-D83F-4464-98EB-157B0B3F94EA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLWindow", "prj\GLWindow_Trangle\GLWindow.vcxproj", "{4139D970-D83F-4464-98EB-157B0B3F94EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

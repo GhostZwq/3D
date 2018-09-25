@@ -87,7 +87,7 @@ int main()
 	glViewport(0, 0, width, height);
 
 	ShaderManagement shader;
-	shader.init("../Shaders/VertexShader.vs", "../Shaders/FragShader.fs");
+	shader.init("../../shader/VertexShader.vs", "../../shader/FragShader.fs");
 	shader.compileShader();
 	//shader.useShader();                    // 后面setFloat函数要用到shaderprogram函数，所以这里需要先use program
 	
@@ -138,7 +138,7 @@ int main()
 	int i_Width, i_Height, nrChannels;
 	// 反转图片Y轴，使之与OpenGL坐标系匹配。
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load("../Resource/Bitmap/container.jpg", &i_Width, &i_Height, &nrChannels, 0);
+	unsigned char* data = stbi_load("../../res/Bitmap/container.jpg", &i_Width, &i_Height, &nrChannels, 0);
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, i_Width, i_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -163,7 +163,7 @@ int main()
 
 	
 	// 加载并生成纹理
-	unsigned char* dataFace = stbi_load("../Resource/Bitmap/awesomeface.png", &i_Width, &i_Height, &nrChannels, 0);
+	unsigned char* dataFace = stbi_load("../../res/Bitmap/awesomeface.png", &i_Width, &i_Height, &nrChannels, 0);
 	if (dataFace)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, i_Width, i_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, dataFace);
