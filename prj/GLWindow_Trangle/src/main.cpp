@@ -9,7 +9,7 @@
 #include "ShaderInfo.h"
 #include "VertexInfo.h"
 #include "stb_image.h"
-
+ 
 
 bool g_line = false;
 float g_definition = 0.0;
