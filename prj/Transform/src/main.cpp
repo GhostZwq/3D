@@ -170,6 +170,19 @@ int main()
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+		trans = glm::mat4(1.0f);
+		trans = glm::translate(trans, glm::vec3(-0.5f, 0.5f, 0.0f));
+		float scaleAmount = sin(glfwGetTime());
+		if (scaleAmount < 0)
+		{
+			scaleAmount = -scaleAmount;
+		}
+		trans = glm::scale(trans, glm::vec3(scaleAmount, scaleAmount, scaleAmount));
+		ourShader.use();
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, &trans[0][0]);
+
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
 		// glfw交换buffer并接受事件
 		glfwSwapBuffers(window);
 		glfwPollEvents();
