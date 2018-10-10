@@ -63,7 +63,7 @@ public:
 	// Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 	glm::mat4 GetViewMatrix()
 	{
-		return glm::lookAt(Position, Position + Front, Up);
+		return self_lookat(Position, Position + Front, Up);
 	}
 
 	// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
@@ -128,6 +128,30 @@ private:
 		// Also re-calculate the Right and Up vector
 		Right = glm::normalize(glm::cross(Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
 		Up = glm::normalize(glm::cross(Right, Front));
+	}
+
+	glm::mat4  self_lookat(glm::vec3 position, glm::vec3 target, glm::vec3 worldup)
+	{
+		glm::vec3 zaxis = glm::normalize(position - target);
+		glm::vec3 xaxis = glm::normalize(glm::cross(glm::normalize(worldup), zaxis));
+		glm::vec3 yaxis = glm::normalize(glm::cross(zaxis, xaxis));
+
+		glm::mat4 translation;
+		translation[3][0] = -position.x;
+		translation[3][1] = -position.y;
+		translation[3][2] = -position.z;
+		glm::mat4 rotation;
+		rotation[0][0] = xaxis.x; // First column, first row
+		rotation[1][0] = xaxis.y;
+		rotation[2][0] = xaxis.z;
+		rotation[0][1] = yaxis.x; // First column, second row
+		rotation[1][1] = yaxis.y;
+		rotation[2][1] = yaxis.z;
+		rotation[0][2] = zaxis.x; // First column, third row
+		rotation[1][2] = zaxis.y;
+		rotation[2][2] = zaxis.z;
+
+		return rotation * translation; // Remember to read from right to left (first translation then rotation)
 	}
 };
 #endif
