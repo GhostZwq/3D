@@ -13,7 +13,7 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-//void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -33,6 +33,8 @@ float yaw = 0.0f;
 float pitch = 0.0f;
 
 bool firstMouse = true;
+
+float fov = 45.0f;
 
 int main()
 {
@@ -70,6 +72,7 @@ int main()
 
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 	glEnable(GL_DEPTH_TEST);
 	//glDepthFunc(GL_LEQUAL);
 	//glClearDepth(1);
@@ -250,7 +253,7 @@ int main()
 		float camZ = cos(glfwGetTime()) * radius;
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		
-		projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		
 
 
@@ -367,4 +370,20 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	cameraFront = glm::normalize(front);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	if (fov >= 1.0f && fov <= 45.0f)
+	{
+		fov -= yoffset;
+	}
+	if (fov <= 1.0f)
+	{ 
+		fov = 1.0f;
+	}
+	if (fov >= 45.0f)
+	{
+		fov = 45.0f;
+	}
 }
