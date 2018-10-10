@@ -35,6 +35,9 @@
     <ClInclude Include="..\..\include\learnopengl\Shader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\learnopengl\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\shader\Coords_f.vs">

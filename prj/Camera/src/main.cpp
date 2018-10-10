@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <learnopengl/Shader.h>
+#include <learnopengl/Camera.h>
 
 #include <iostream>
 
@@ -26,11 +27,9 @@ glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 float deltaTime = 0.0f; // 当前帧与上一帧的时间差
 float lastFrame = 0.0f; // 上一帧的时间
 
-float lastX = 400;
-float lastY = 300;
-
-float yaw = 0.0f;
-float pitch = 0.0f;
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+float lastX = SCR_WIDTH / 2;
+float lastY = SCR_HEIGHT / 2;
 
 bool firstMouse = true;
 
@@ -240,7 +239,7 @@ int main()
 
 		// create transformations
 		glm::mat4 model;
-		glm::mat4 view;
+		//glm::mat4 view;
 		glm::mat4 projection;
 		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
@@ -251,20 +250,23 @@ int main()
 		float radius = 10.0f;
 		float camX = sin(glfwGetTime()) * radius;
 		float camZ = cos(glfwGetTime()) * radius;
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		//view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		
-		projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		
 
 
 		// retrieve the matrix uniform locations
 		//unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
-		unsigned int viewLoc = glGetUniformLocation(ourShader.ID, "view");
+		//unsigned int viewLoc = glGetUniformLocation(ourShader.ID, "view");
 		// pass them to the shaders (3 different ways)
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+		//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, camera.GetViewMatrix());
 		// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 		ourShader.setMat4("projection", projection);
+
+		glm::mat4 view = camera.GetViewMatrix();
+		ourShader.setMat4("view", view);
 
 		// render container
 		glBindVertexArray(VAO);
@@ -310,19 +312,19 @@ void processInput(GLFWwindow *window)
 		glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		cameraPos += cameraSpeed * cameraFront;
+		camera.ProcessKeyboard(FORWARD, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		cameraPos -= cameraSpeed * cameraFront;
+		camera.ProcessKeyboard(BACKWARD, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		camera.ProcessKeyboard(LEFT, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		camera.ProcessKeyboard(RIGHT, deltaTime);
 	}
 }
 
@@ -349,41 +351,10 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	float sensitivity = 0.05f;
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	yaw += xoffset;
-	pitch += yoffset;
-
-	if (pitch > 89.0f)
-	{
-		pitch = 89.0f;
-	}
-	if (pitch < -89.0f)
-	{
-		pitch = -89.0f;
-	}
-
-	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(front);
+	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	if (fov >= 1.0f && fov <= 45.0f)
-	{
-		fov -= yoffset;
-	}
-	if (fov <= 1.0f)
-	{ 
-		fov = 1.0f;
-	}
-	if (fov >= 45.0f)
-	{
-		fov = 45.0f;
-	}
+	camera.ProcessMouseScroll(yoffset);
 }

@@ -87,6 +87,7 @@
     <ClCompile Include="src\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\learnopengl\Camera.h" />
     <ClInclude Include="..\..\include\learnopengl\Shader.h" />
     <ClInclude Include="..\..\include\stb_image.h" />
   </ItemGroup>
