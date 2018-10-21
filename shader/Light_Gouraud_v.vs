@@ -4,7 +4,6 @@ layout (location = 1) in vec3 aNormal;
 
 out vec3 LightingColor;                 // Result Lighting Color
 
-uniform vec3 objectColor;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
 uniform vec3 lightPos;
@@ -37,6 +36,6 @@ void main()
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
 	vec3 specular = specularStrength * spec * lightColor;
 	
-	LightingColor = (ambient + diffuse + specular) * objectColor;	
+	LightingColor = ambient + diffuse + specular;	
 	
 }
