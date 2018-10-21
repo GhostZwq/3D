@@ -95,6 +95,8 @@
     <None Include="..\..\shader\color_f.vs" />
     <None Include="..\..\shader\color_v.vs" />
     <None Include="..\..\shader\light_f.vs" />
+    <None Include="..\..\shader\Light_Gouraud_f.vs" />
+    <None Include="..\..\shader\Light_Gouraud_v.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

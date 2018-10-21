@@ -31,7 +31,7 @@ bool firstMouse = true;
 
 float fov = 45.0f;
 
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+glm::vec3 lightPos(-0.7f, 0.5f, 1.5f);
 
 int main()
 {
@@ -76,8 +76,8 @@ int main()
 
 	// build and compile our shader zprogram
 	// ------------------------------------
-	Shader ourShader("../../shader/color_v.vs", "../../shader/color_f.vs");
-	Shader lightShader("../../shader/color_v.vs", "../../shader/light_f.vs");
+	Shader ourShader("../../shader/Light_Gouraud_v.vs", "../../shader/Light_Gouraud_f.vs");
+	Shader lightShader("../../shader/Light_Gouraud_v.vs", "../../shader/light_f.vs");
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
@@ -240,8 +240,8 @@ int main()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
-		lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
-		lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
+		//lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
+		//lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
 
 		// create transformations
 		glm::mat4 model;
