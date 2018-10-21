@@ -23,9 +23,9 @@ const unsigned int SCR_HEIGHT = 600;
 float deltaTime = 0.0f; // 当前帧与上一帧的时间差
 float lastFrame = 0.0f; // 上一帧的时间
 
-Camera camera(glm::vec3(0.0f, 0.0f, 5.0f));
-float lastX = SCR_WIDTH / 2;
-float lastY = SCR_HEIGHT / 2;
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+float lastX = SCR_WIDTH / 2.0f;
+float lastY = SCR_HEIGHT / 2.0f;
 
 bool firstMouse = true;
 
@@ -210,10 +210,11 @@ int main()
 	ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
 	ourShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 	ourShader.setVec3("lightPos", lightPos);
+	
 
 	lightShader.use();
 	lightShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-	lightShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);	
+	lightShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 	
 	// render loop
 	// -----------
@@ -230,7 +231,7 @@ int main()
 
 		// render
 		// ------
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// bind textures on corresponding texture units
@@ -239,18 +240,24 @@ int main()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
-		// activate shader
-		ourShader.use();
+		lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
+		lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
 
 		// create transformations
 		glm::mat4 model;
 		glm::mat4 projection;
+		glm::mat4 view;
+
+		// activate shader
+		ourShader.use();
+		ourShader.setVec3("viewPos", camera.Position);
 
 		projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		ourShader.setMat4("projection", projection);
 
-		glm::mat4 view = camera.GetViewMatrix();
+		view = camera.GetViewMatrix();
 		ourShader.setMat4("view", view);
+		ourShader.setVec3("lightPos", lightPos);
 
 		// render container
 		glBindVertexArray(VAO);
@@ -258,9 +265,8 @@ int main()
 		ourShader.setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		glBindVertexArray(lightVAO);		
 
-
-		glBindVertexArray(lightVAO);
 		model = glm::mat4();
 		model = glm::translate(model, lightPos);
 		model = glm::scale(model, glm::vec3(0.2f));
