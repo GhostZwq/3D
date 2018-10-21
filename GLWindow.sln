@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Camera", "prj\Camera\Camera
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Color", "prj\Color\Color.vcxproj", "{00F3B978-940A-4937-BC86-35E321EE2861}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Material", "prj\Material\Material.vcxproj", "{C665126A-FC7F-402A-BB2F-B609937A3083}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,10 @@ Global
 		{00F3B978-940A-4937-BC86-35E321EE2861}.Debug|Win32.Build.0 = Debug|Win32
 		{00F3B978-940A-4937-BC86-35E321EE2861}.Release|Win32.ActiveCfg = Release|Win32
 		{00F3B978-940A-4937-BC86-35E321EE2861}.Release|Win32.Build.0 = Release|Win32
+		{C665126A-FC7F-402A-BB2F-B609937A3083}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C665126A-FC7F-402A-BB2F-B609937A3083}.Debug|Win32.Build.0 = Debug|Win32
+		{C665126A-FC7F-402A-BB2F-B609937A3083}.Release|Win32.ActiveCfg = Release|Win32
+		{C665126A-FC7F-402A-BB2F-B609937A3083}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
