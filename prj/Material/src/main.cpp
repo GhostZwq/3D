@@ -266,6 +266,19 @@ int main()
 		ourShader.setMat4("view", view);
 		ourShader.setVec3("lightPos", lightPos);
 
+		glm::vec3 lightColor;
+		lightColor.x = sin(glfwGetTime() * 2.0f);
+		lightColor.y = sin(glfwGetTime() * 0.7f);
+		lightColor.z = sin(glfwGetTime() * 1.3f);
+		
+		glm::vec3 diffuseColor = lightColor     * glm::vec3(0.5f);
+		glm::vec3 ambientColor = diffuseColor   * glm::vec3(0.2f);
+		glm::vec3 specularColor = lightColor    * glm::vec3(0.5f);
+
+		ourShader.setVec3("light.ambient", ambientColor);
+		ourShader.setVec3("light.diffuse", diffuseColor);
+		ourShader.setVec3("light.specular", specularColor);
+
 		// render container
 		glBindVertexArray(VAO);
 
