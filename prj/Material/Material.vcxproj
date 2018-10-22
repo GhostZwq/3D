@@ -87,8 +87,9 @@
     <ClCompile Include="src\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\shader\color_f.vs" />
-    <None Include="..\..\shader\color_v.vs" />
+    <None Include="..\..\shader\light_f.vs" />
+    <None Include="..\..\shader\Material_f.vs" />
+    <None Include="..\..\shader\Material_v.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\learnopengl\Camera.h" />

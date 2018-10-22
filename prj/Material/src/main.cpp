@@ -76,8 +76,8 @@ int main()
 
 	// build and compile our shader zprogram
 	// ------------------------------------
-	Shader ourShader("../../shader/color_v.vs", "../../shader/color_f.vs");
-	Shader lightShader("../../shader/color_v.vs", "../../shader/light_f.vs");
+	Shader ourShader("../../shader/Material_v.vs", "../../shader/Material_f.vs");
+	Shader lightShader("../../shader/Material_v.vs", "../../shader/light_f.vs");
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
@@ -207,9 +207,13 @@ int main()
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
 	ourShader.use();
-	ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+	//ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
 	ourShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 	ourShader.setVec3("lightPos", lightPos);
+	ourShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+	ourShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+	ourShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+	ourShader.setFloat("material.shininess", 32.0f);
 
 
 	lightShader.use();
