@@ -29,13 +29,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\shader\Light_Gouraud_f.vs">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="..\..\shader\Light_Gouraud_v.vs">
-      <Filter>Shader</Filter>
-    </None>
     <None Include="..\..\shader\light_f.vs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\..\shader\LightTexture_v.vs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="..\..\shader\LightTexture_f.vs">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

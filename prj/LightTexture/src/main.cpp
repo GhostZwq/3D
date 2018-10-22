@@ -76,8 +76,8 @@ int main()
 
 	// build and compile our shader zprogram
 	// ------------------------------------
-	Shader ourShader("../../shader/Material_v.vs", "../../shader/Material_f.vs");
-	Shader lightShader("../../shader/Material_v.vs", "../../shader/light_f.vs");
+	Shader ourShader("../../shader/LightTexture_v.vs", "../../shader/LightTexture_f.vs");
+	Shader lightShader("../../shader/LightTexture_v.vs", "../../shader/light_f.vs");
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
