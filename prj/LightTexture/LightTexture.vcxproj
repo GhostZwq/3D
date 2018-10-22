@@ -87,6 +87,8 @@
     <ClCompile Include="src\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\shader\Lamp_f.vs" />
+    <None Include="..\..\shader\Lamp_v.vs" />
     <None Include="..\..\shader\LightTexture_f.vs" />
     <None Include="..\..\shader\LightTexture_v.vs" />
     <None Include="..\..\shader\light_f.vs" />
