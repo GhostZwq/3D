@@ -171,7 +171,7 @@ int main()
 	ourShader.setFloat("material.shininess", 32.0f);
 	ourShader.setVec3("light.ambient", 1.0f, 1.0f, 1.0f);
 	ourShader.setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
-	ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+	ourShader.setVec3("light.specular", 0.0f, 1.0f, 1.0f);
 	ourShader.setInt("material.diffuse", 0);
 	ourShader.setInt("material.specular", 1);
 
