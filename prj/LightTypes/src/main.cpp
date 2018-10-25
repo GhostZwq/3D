@@ -32,8 +32,6 @@ bool firstMouse = true;
 
 float fov = 45.0f;
 
-glm::vec3 lightPos(-0.7f, 0.5f, 1.5f);
-
 int main()
 {
 	// glfw: initialize and configure
@@ -124,6 +122,20 @@ int main()
 		-0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
 	};
+
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(2.0f, 5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f, 3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f, 2.0f, -2.5f),
+		glm::vec3(1.5f, 0.2f, -1.5f),
+		glm::vec3(-1.3f, 1.0f, -1.5f)
+	};
+
 	unsigned int VBO, VAO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);;
@@ -157,26 +169,18 @@ int main()
 	glBindVertexArray(0);
 
 	unsigned int diffuseMap = loadTexture("../../res/bitmap/container2.png");
-	unsigned int specularMap = loadTexture("../../res/bitmap/lighting_maps_specular_color.png");
-	unsigned int emissionMap = loadTexture("../../res/bitmap/matrix.jpg");
+	unsigned int specularMap = loadTexture("../../res/bitmap/container2_specular.png.png");	
 
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
 	ourShader.use();
-	//ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-	//ourShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-	ourShader.setVec3("lightPos", lightPos);
-	//ourShader.setVec3("material.ambient", 0.0f, 0.1f, 0.06f);
-	//ourShader.setVec3("material.diffuse", 0.0f, 0.50980392f, 0.50980392f);
-	//ourShader.setVec3("material.specular", 0.50196078f, 0.50196078f, 0.50196078f);
 	ourShader.setFloat("material.shininess", 32.0f);
-	ourShader.setVec3("light.ambient", 0.5f, 0.5f, 0.5f);
-	ourShader.setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
+	ourShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+	ourShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
 	ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+	ourShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
 	ourShader.setInt("material.diffuse", 0);
 	ourShader.setInt("material.specular", 1);
-	ourShader.setInt("material.emission", 2);
-
 
 	lightShader.use();
 	lightShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
@@ -187,10 +191,7 @@ int main()
 
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, specularMap);
-
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, emissionMap);
-
+	
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window))
@@ -210,7 +211,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// create transformations
-		glm::mat4 model;
+		//glm::mat4 model;
 		glm::mat4 projection;
 		glm::mat4 view;
 
@@ -223,15 +224,22 @@ int main()
 
 		view = camera.GetViewMatrix();
 		ourShader.setMat4("view", view);
-		ourShader.setVec3("lightPos", lightPos);
 
 		// render container
 		glBindVertexArray(VAO);
 
-		ourShader.setMat4("model", model);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		for (unsigned int i = 0; i < 10; i++)
+		{
+			glm::mat4 model;
+			model = glm::translate(model, cubePositions[i]);
+			float angle = 20.0f * i;
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			ourShader.setMat4("model", model);
 
-		glBindVertexArray(lightVAO);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}	
+
+		/*glBindVertexArray(lightVAO);
 
 		model = glm::mat4();
 		model = glm::translate(model, lightPos);
@@ -243,10 +251,7 @@ int main()
 		lightShader.setMat4("view", view);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		glBindVertexArray(0);
-
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);*/
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------

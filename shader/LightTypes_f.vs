@@ -3,12 +3,12 @@
 struct Material {
 		sampler2D diffuse;
 		sampler2D specular;
-		sampler2D emission;
 		float shininess;
 };
 
 struct Light {
-		vec3 position;
+		//vec3 position;     // 使用定向光就不需要灯光位置来计算方向了
+		vec3 direction;
 		
 		vec3 ambient;
 		vec3 diffuse;
@@ -34,7 +34,7 @@ void main()
 
 	// 漫反射光
 	vec3 norm = normalize(Normal);
-	vec3 lightDir = normalize(lightPos - FragPos);
+	vec3 lightDir = normalize(-light.direction);
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
 
@@ -43,11 +43,8 @@ void main()
 	vec3 reflectDir = reflect(-lightDir, norm);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
 	vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
-
-	// 放射光贴图
-	vec3 emissionColor = vec3(texture(material.emission, TexCoords));
-	
-	vec3 result = ambient + diffuse + specular + emissionColor;
+		
+	vec3 result = ambient + diffuse + specular;
 	FragColor = vec4(result, 1.0);
 }
 
