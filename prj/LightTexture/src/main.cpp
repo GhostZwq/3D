@@ -157,7 +157,7 @@ int main()
 	glBindVertexArray(0);
 
 	unsigned int diffuseMap = loadTexture("../../res/bitmap/container2.png");
-	unsigned int specularMap = loadTexture("../../res/bitmap/container2_specular.png");
+	unsigned int specularMap = loadTexture("../../res/bitmap/lighting_maps_specular_color.png");
 	
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
@@ -169,9 +169,9 @@ int main()
 	//ourShader.setVec3("material.diffuse", 0.0f, 0.50980392f, 0.50980392f);
 	//ourShader.setVec3("material.specular", 0.50196078f, 0.50196078f, 0.50196078f);
 	ourShader.setFloat("material.shininess", 32.0f);
-	ourShader.setVec3("light.ambient", 1.0f, 1.0f, 1.0f);
+	ourShader.setVec3("light.ambient", 0.1f, 0.1f, 0.1f);
 	ourShader.setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
-	ourShader.setVec3("light.specular", 0.0f, 1.0f, 1.0f);
+	ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 	ourShader.setInt("material.diffuse", 0);
 	ourShader.setInt("material.specular", 1);
 
