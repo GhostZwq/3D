@@ -77,7 +77,7 @@ int main()
 
 	// build and compile our shader zprogram
 	// ------------------------------------
-	Shader ourShader("../../shader/LightTypes_v.vs", "../../shader/LightTypes_f.vs");
+	Shader ourShader("../../shader/SpotLight_v.vs", "../../shader/SpotLight_f.vs");
 	Shader lightShader("../../shader/Lamp_v.vs", "../../shader/Lamp_f.vs");
 
 	float vertices[] = {
@@ -230,6 +230,10 @@ int main()
 
 		view = camera.GetViewMatrix();
 		ourShader.setMat4("view", view);
+
+        ourShader.setVec3("light.position", camera.Position);
+        ourShader.setVec3("light.direction", camera.Front);
+        ourShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
 
 		// render container
 		glBindVertexArray(VAO);
