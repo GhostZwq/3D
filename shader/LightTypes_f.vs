@@ -7,8 +7,7 @@ struct Material {
 };
 
 struct Light {
-		//vec3 position;     // 使用定向光就不需要灯光位置来计算方向了
-		vec3 direction;
+		vec3 position;
 		
 		vec3 ambient;
 		vec3 diffuse;
@@ -34,7 +33,7 @@ void main()
 
 	// 漫反射光
 	vec3 norm = normalize(Normal);
-	vec3 lightDir = normalize(-light.direction);
+	vec3 lightDir = normalize(FragPos - light.position);
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
 

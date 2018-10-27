@@ -32,6 +32,8 @@ bool firstMouse = true;
 
 float fov = 45.0f;
 
+glm::vec3 lightPos(-0.7f, 0.5f, 1.5f);
+
 int main()
 {
 	// glfw: initialize and configure
@@ -178,7 +180,7 @@ int main()
 	ourShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 	ourShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
 	ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-	ourShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
+    ourShader.setVec3("light.position", lightPos);
 	ourShader.setInt("material.diffuse", 0);
 	ourShader.setInt("material.specular", 1);
 
