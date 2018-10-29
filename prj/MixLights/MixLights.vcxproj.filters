@@ -24,10 +24,10 @@
     <None Include="..\..\shader\Lamp_v.vs">
       <Filter>Shader</Filter>
     </None>
-    <None Include="..\..\shader\LightTypes_f.vs">
+    <None Include="..\..\shader\MixLight_v.vs">
       <Filter>Shader</Filter>
     </None>
-    <None Include="..\..\shader\LightTypes_v.vs">
+    <None Include="..\..\shader\MixLight_f.vs">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

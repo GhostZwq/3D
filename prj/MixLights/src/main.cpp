@@ -77,7 +77,7 @@ int main()
 
 	// build and compile our shader zprogram
 	// ------------------------------------
-	Shader ourShader("../../shader/SpotLight_v.vs", "../../shader/SpotLight_f.vs");
+	Shader ourShader("../../shader/MixLight_v.vs", "../../shader/MixLight_f.vs");
 	Shader lightShader("../../shader/Lamp_v.vs", "../../shader/Lamp_f.vs");
 
 	float vertices[] = {
@@ -171,7 +171,7 @@ int main()
 	glBindVertexArray(0);
 
 	unsigned int diffuseMap = loadTexture("../../res/bitmap/container2.png");
-	unsigned int specularMap = loadTexture("../../res/bitmap/container2_specular.png.png");	
+	unsigned int specularMap = loadTexture("../../res/bitmap/container2_specular.png");	
 
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------

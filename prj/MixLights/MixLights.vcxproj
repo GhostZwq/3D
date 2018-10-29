@@ -87,8 +87,8 @@
   <ItemGroup>
     <None Include="..\..\shader\Lamp_f.vs" />
     <None Include="..\..\shader\Lamp_v.vs" />
-    <None Include="..\..\shader\LightTypes_f.vs" />
-    <None Include="..\..\shader\LightTypes_v.vs" />
+    <None Include="..\..\shader\MixLight_f.vs" />
+    <None Include="..\..\shader\MixLight_v.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\learnopengl\Camera.h" />

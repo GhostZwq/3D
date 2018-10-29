@@ -171,7 +171,7 @@ int main()
 	glBindVertexArray(0);
 
 	unsigned int diffuseMap = loadTexture("../../res/bitmap/container2.png");
-	unsigned int specularMap = loadTexture("../../res/bitmap/container2_specular.png.png");	
+	unsigned int specularMap = loadTexture("../../res/bitmap/container2_specular.png");	
 
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
