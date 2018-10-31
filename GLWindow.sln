@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LightTypes", "prj\LightType
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MixLights", "prj\MixLights\MixLights.vcxproj", "{16104C7E-4657-417D-8517-9063557686D9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelLoading", "prj\ModelLoading\ModelLoading.vcxproj", "{9D86A6E2-81D5-4F07-8050-B2B206695F2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -63,6 +65,10 @@ Global
 		{16104C7E-4657-417D-8517-9063557686D9}.Debug|Win32.Build.0 = Debug|Win32
 		{16104C7E-4657-417D-8517-9063557686D9}.Release|Win32.ActiveCfg = Release|Win32
 		{16104C7E-4657-417D-8517-9063557686D9}.Release|Win32.Build.0 = Release|Win32
+		{9D86A6E2-81D5-4F07-8050-B2B206695F2D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9D86A6E2-81D5-4F07-8050-B2B206695F2D}.Debug|Win32.Build.0 = Debug|Win32
+		{9D86A6E2-81D5-4F07-8050-B2B206695F2D}.Release|Win32.ActiveCfg = Release|Win32
+		{9D86A6E2-81D5-4F07-8050-B2B206695F2D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
