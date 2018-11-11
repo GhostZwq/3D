@@ -1,6 +1,13 @@
+#ifndef MESH_H
+#define MESH_H
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #include <learnopengl/Shader.h>
 
@@ -16,6 +23,7 @@ struct Vertex {
 struct Texture {
     unsigned int id;
     std::string type;
+    aiString path;          // 存储纹理的路径用于与其他纹理进行比较
 };
 
 
@@ -38,3 +46,5 @@ private:
     unsigned int VAO, VBO, EBO;
     void setupMesh();
 };
+
+#endif
