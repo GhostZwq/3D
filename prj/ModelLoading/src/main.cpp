@@ -34,8 +34,6 @@ bool firstMouse = true;
 
 float fov = 45.0f;
 
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-
 int main()
 {
     // glfw: initialize and configure
@@ -77,10 +75,37 @@ int main()
     //glDepthFunc(GL_LEQUAL);
     //glClearDepth(1);
 
+    glm::vec3 pointLightPositions[] = {
+        glm::vec3(2.0f, 0.0f, 2.0f),        
+        glm::vec3(-2.0f, 0.0f, 2.0f),        
+    };
+
+    glm::vec3 pointLightColors[] = {
+        glm::vec3(1.0f, 1.0f, 1.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f),
+    };
+
+
     // build and compile our shader zprogram
     // ------------------------------------
     Shader ourShader("../../shader/ModelLoading_v.vs", "../../shader/ModelLoading_f.vs"); 
     ourShader.use();
+    ourShader.setFloat("material.shininess", 32.0f);
+    ourShader.setVec3("pointLights[0].ambient", pointLightColors[0].x * 0.1f, pointLightColors[0].y * 0.1f, pointLightColors[0].z * 0.1f);
+    ourShader.setVec3("pointLights[0].diffuse", pointLightColors[0]);
+    ourShader.setVec3("pointLights[0].specular", pointLightColors[0]);
+    ourShader.setFloat("pointLights[0].constant", 1.0f);
+    ourShader.setFloat("pointLights[0].linear", 0.09f);
+    ourShader.setFloat("pointLights[0].quadratice", 0.032f);
+    ourShader.setVec3("pointLights[0].position", pointLightPositions[0]);
+
+    ourShader.setVec3("pointLights[1].ambient", pointLightColors[1].x * 0.1f, pointLightColors[1].y * 0.1f, pointLightColors[1].z * 0.1f);
+    ourShader.setVec3("pointLights[1].diffuse", pointLightColors[1]);
+    ourShader.setVec3("pointLights[1].specular", pointLightColors[1]);
+    ourShader.setFloat("pointLights[1].constant", 1.0f);
+    ourShader.setFloat("pointLights[1].linear", 0.09f);
+    ourShader.setFloat("pointLights[1].quadratice", 0.032f);
+    ourShader.setVec3("pointLights[1].position", pointLightPositions[1]);
 
     Model objModel("E:/work/3D/LearnOpenGL/res/3D/OBJ/nanosuit.obj");
            
@@ -99,7 +124,7 @@ int main()
 
         // render
         // ------
-        glClearColor(0.75f, 0.52f, 0.3f, 1.0f);
+        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glm::mat4 projection;
@@ -116,6 +141,9 @@ int main()
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
         ourShader.setMat4("model", model);   
+
+        ourShader.setVec3("viewPos", camera.Position);
+        
 
         objModel.Draw(ourShader);
 
